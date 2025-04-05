@@ -1,11 +1,13 @@
-const Gameboard = (function () {
-  const gameboard = [];
+const Gameboard = (function() {
+  const gameboard = [[], [], []];
 
-  function addToBoard(player) {
-    if (gameboard.length < 9) {
-      gameboard.push(player);
+  function addToBoard(positionX, positionY, playerSymbol) {
+    if (positionX > 2 || positionX < 0) {
+      console.error("Positon X out of bounds.");
+    } else if (positionY > 2 || positionY < 0) {
+      console.error("Position Y out of bounds.");
     } else {
-      console.error("The gameboard is full.");
+      gameboard[positionY][positionX] = playerSymbol;
     }
   }
 
@@ -16,16 +18,13 @@ const Gameboard = (function () {
 
 function createUser(name, symbol) {
   let userScore = 0;
-  let userStatus = 0;
   const addScore = () => userScore++;
   const getScore = () => userScore;
-  const addStatus = () => userStatus++;
-  const getStatus = () => userStatus;
-  return { name, symbol, getStatus, getScore, addScore, addStatus };
+  return { name, symbol, getScore, addScore };
 }
 
 function gameControl(
   playerOne,
   playerTwo = createUser("CPU", playerOne.symbol == "X" ? "O" : "X"),
   gameboard
-) {}
+) { }
