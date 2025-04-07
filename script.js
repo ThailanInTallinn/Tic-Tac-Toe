@@ -1,7 +1,7 @@
 const Gameboard = (function() {
   const gameboard = [[], [], []];
 
-  function addToBoard(positionX, positionY, player) {
+  function addToBoard(positionY, positionX, player) {
     if (positionX > 2 && positionX < 0) {
       console.error("Positon X out of bounds.");
       return false;
@@ -9,7 +9,7 @@ const Gameboard = (function() {
       console.error("Position Y out of bounds.");
       return false;
     } else {
-      getBoard()[positionY][positionX] = player;
+      gameboard[positionY][positionX] = player;
       return true;
     }
   }
@@ -32,11 +32,11 @@ function createUser(name, symbol) {
 function checkMatchWinner() {
 
   for (let i = 0; i < 3; i++) {
-    if (Gameboard.getBoard()[i][0].symbol == Gameboard.getBoard()[i][1].symbol == Gameboard.getBoard()[i][2].symbol) {
+    if (Gameboard.getBoard()[i][0].symbol == Gameboard.getBoard()[i][1].symbol && Gameboard.getBoard()[i][1].symbol == Gameboard.getBoard()[i][2].symbol) {
       console.log(`${Gameboard.getBoard()[i][0].name} is the winner!`);
       Gameboard.getBoard()[i][0].setWin();
       return true;
-    } else if (Gameboard.getBoard()[0][i].symbol == Gameboard.getBoard()[1][i].symbol == Gameboard.getBoard()[2][i].symbol) {
+    } else if (Gameboard.getBoard()[0][i].symbol == Gameboard.getBoard()[1][i].symbol && Gameboard.getBoard()[1][i].symbol == Gameboard.getBoard()[2][i].symbol) {
       console.log(`${Gameboard.getBoard()[0][i].name} is the winner!`);
       Gameboard.getBoard()[0][i].setWin();
       return true;
@@ -44,13 +44,13 @@ function checkMatchWinner() {
 
   }
 
-  if (Gameboard.getBoard()[0][0].symbol == Gameboard.getBoard()[1][1].symbol == Gameboard.getBoard()[2][2].symbol) {
+  if (Gameboard.getBoard()[0][0].symbol == Gameboard.getBoard()[1][1].symbol && Gameboard.getBoard()[1][1].symbol == Gameboard.getBoard()[2][2].symbol) {
     console.log(`${Gameboard.getBoard()[0][0].name} is the winner!`);
     Gameboard.getBoard()[0][0].setWin();
     return true;
   }
 
-  if (Gameboard.getBoard()[0][2].symbol == Gameboard.getBoard()[1][1].symbol == Gameboard.getBoard()[2][0].symbol) {
+  if (Gameboard.getBoard()[0][2].symbol == Gameboard.getBoard()[1][1].symbol && Gameboard.getBoard()[1][1].symbol == Gameboard.getBoard()[2][0].symbol) {
     console.log(`${Gameboard.getBoard()[0][2].name} is the winner!`);
     Gameboard.getBoard()[0][2].setWin();
     return true;
@@ -67,20 +67,25 @@ function gameControl(
   let positionX;
   let positionY;
 
-  for (let i = 0; i < 9; i++) {
-    if (i % 2 == 0) {
+  let outterCounter = 0;
+
+  while (!(playerOne.getWin()) && !(playerTwo.getWin())) {
+
+    if (outterCounter % 2 == 0) {
       positionX = Number(prompt(`${playerOne.name}, pick your X position`));
       positionY = Number(prompt(`${playerOne.name}, pick your Y position`));
-      Gameboard.addToBoard(positionX, positionY, playerOne);
+      Gameboard.addToBoard(positionY, positionX, playerOne);
     } else {
       positionX = Number(prompt(`${playerTwo.name}, pick your X position`));
       positionY = Number(prompt(`${playerTwo.name}, pick your Y position`));
-      Gameboard.addToBoard(positionX, positionY, playerTwo);
+      Gameboard.addToBoard(positionY, positionX, playerTwo);
     }
 
-    if (i >= 4 && checkMatchWinner()) {
+    outterCounter += 1;
+
+
+    if (outterCounter >= 4) {
       checkMatchWinner();
-      return;
     }
 
   }
@@ -95,11 +100,10 @@ for (let i = 0; i < 3; i++) {
     const basePlayer = createUser("Void", `A${secondCounter}`);
     secondCounter++;
     Gameboard.addToBoard(i, j, basePlayer);
-    console.log(Gameboard.getBoard()[j][i].symbol);
   }
 }
 
-
-/*let firstPlayer = createUser("Thailan", "X");
+let firstPlayer = createUser("Thailan", "X");
 let secondPlayer = createUser("Blanda", "O");
-gameControl(firstPlayer, secondPlayer);*/
+gameControl(firstPlayer, secondPlayer);
+
