@@ -86,6 +86,9 @@ function gameControl(
 
     if (outterCounter >= 4) {
       checkMatchWinner();
+    } else if (outterCounter == 8 && !(checkMatchWinner())) {
+      console.log("It's a tie!");
+      return;
     }
 
   }
