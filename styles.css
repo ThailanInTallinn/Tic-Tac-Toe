@@ -39,6 +39,9 @@ header h1 {
 main {
 	grid-area: main;
 	background-color: #EAE7DC;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 footer {
@@ -71,4 +74,10 @@ footer a {
 
 footer a:visited {
 	cursor: pointer;
+}
+
+#gameboard_container {
+	width: 700px;
+	height: 700px;
+	border: 2px solid black;
 }
