@@ -88,6 +88,9 @@ function updateBoard(boardPosition, player) {
         board.replaceChild(square, board.childNodes[boardPosition]);
       }
       break;
+    default:
+      console.log("Nope");
+      break;
   }
 }
 
@@ -185,6 +188,9 @@ const header = document.querySelector("header h1");
 header.addEventListener("click", (e1) => {
   header.innerText = `${firstPlayer.name}, it's your turn!`;
   board.addEventListener("click", (e2) => {
-    gameControl(firstPlayer, secondPlayer, e2);
+    if (!(e2.target.id)) {
+      gameControl(firstPlayer, secondPlayer, e2);
+    }
   })
 })
+
