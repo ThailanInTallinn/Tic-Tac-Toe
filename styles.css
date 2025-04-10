@@ -80,4 +80,21 @@ footer a:visited {
 	width: 700px;
 	height: 700px;
 	border: 2px solid black;
+	display: grid;
+	grid-template-columns: repeat(3, 30%);
+	grid-template-rows: repeat(3, 30%);
+	gap: 2.5%;
+	align-content: center;
+	justify-items: stretch;
+	justify-content: center;
+	background-color: black;
+}
+
+#gameboard_container p {
+	background-color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 36px;
+	user-select: none;
 }
